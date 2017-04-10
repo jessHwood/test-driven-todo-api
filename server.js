@@ -117,9 +117,9 @@ app.delete('/api/todos/:id', function destroy(req, res) {
        return todo._id == todoId;
        })[0];
 
-      index = deleteTodo._id-1;
+      // index = deleteTodo._id-1;
 
-      todos.splice(index, 1);
+      todos.splice(todos.indexOf(deleteTodo), 1);
 
       console.log(index);
 
