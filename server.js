@@ -78,14 +78,30 @@ app.get('/api/todos/:id', function show(req, res) {
    * id specified in the route parameter (:id)
    */
    var todoId = req.params.id;
-   res.json(todos[todoId-1]);
+   
+    var showTodo = todos.filter(function (todo) {
+       return todo._id == todoId;
+       })[0];
+
+     res.json(showTodo);
 });
 
 app.put('/api/todos/:id', function update(req, res) {
   /* This endpoint will update a single todo with the
    * id specified in the route parameter (:id) and respond
    * with the newly updated todo.
-   */
+   // */
+
+    var todoId = req.params.id;
+
+    var updateTodo = todos.filter(function (todo) {
+        return todo._id == todoId;
+          })[0];
+
+    updateTodo.task = req.body.task;
+    updateTodo.description = req.body.description;
+
+    res.json(updateTodo);
 });
 
 app.delete('/api/todos/:id', function destroy(req, res) {
@@ -93,6 +109,20 @@ app.delete('/api/todos/:id', function destroy(req, res) {
    * id specified in the route parameter (:id) and respond
    * with deleted todo.
    */
+      res.json(todos[req.params.id-1]);
+
+      var todoId = req.params.id;
+
+      var deleteTodo = todos.filter(function (todo) {
+       return todo._id == todoId;
+       })[0];
+
+      index = deleteTodo._id-1;
+
+      todos.splice(index, 1);
+
+      console.log(index);
+
 });
 
 /**********
